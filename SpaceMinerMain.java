@@ -18,11 +18,14 @@ public class SpaceMinerMain {
         
         // Grab images.
         String pp = new File("spaceminer/images/player.jpg").getAbsolutePath();
-        String gp = new File("spaceminer/images/goal.jpg").getAbsolutePath();
+        String cp = new File("spaceminer/images/goal_common.jpg").getAbsolutePath();
+        String up = new File("spaceminer/images/goal_uncommon.jpg").getAbsolutePath();
+        String rp = new File("spaceminer/images/goal_rare.jpg").getAbsolutePath();
         String op = new File("spaceminer/images/obstacle.jpg").getAbsolutePath();
         String bp = new File("spaceminer/images/background.jpg").getAbsolutePath();
         
         // Start game.
-        GameController gc = new GameController(aY, aX, pY, pX, gY, gX, oY, oX, s, pp, gp, op, bp);
+        GameController gc = new GameController(aY, aX, pY, pX, gY, gX, oY, oX, s, 
+                                               pp, cp, up, rp, op, bp);
     }
 }

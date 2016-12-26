@@ -3,11 +3,12 @@ package spaceminer.game;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import spaceminer.game.util.GoalTypes;
 
 public class Score extends GameElement {
     // Used for score positioning.
     public static final int HEIGHT_OFFSET = 25;
-    public static final int WIDTH_OFFSET = 25;
+    public static final int WIDTH_OFFSET = 50;
     
     private int score;
     private int x;
@@ -22,8 +23,14 @@ public class Score extends GameElement {
         y = HEIGHT_OFFSET;
     }
     
-    public void updateScore() {
-        score++;
+    public void updateScore(char type) {
+        if (type == GoalTypes.COMMON)
+            score++;
+        else if (type == GoalTypes.UNCOMMON) {
+            score += 5;
+        } else {
+            score += 10;
+        }
     }
     
     public void draw(Graphics graphics) {

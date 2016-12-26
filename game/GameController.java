@@ -19,7 +19,9 @@ public class GameController implements ActionListener {
     private int obstacleWidth;
     private int speed;
     private String playerPath;
-    private String goalPath;
+    private String commonPath;
+    private String uncommonPath;
+    private String rarePath;
     private String obstaclePath;
     private String backgroundPath;
     private Player player;
@@ -33,8 +35,9 @@ public class GameController implements ActionListener {
     public GameController (int areaHeight, int areaWidth, int playerHeight, 
                            int playerWidth, int goalHeight, int goalWidth,
                            int obstacleHeight, int obstacleWidth, int speed, 
-                           String playerPath, String goalPath, 
-                           String obstaclePath, String backgroundPath) {
+                           String playerPath, String commonPath, String uncommonPath,
+                           String rarePath, String obstaclePath, 
+                           String backgroundPath) {
         timer = new Timer(5, this);
         
         window = new JFrame("Space Miner");
@@ -49,7 +52,9 @@ public class GameController implements ActionListener {
         this.obstacleWidth = obstacleWidth;
         this.speed = speed;
         this.playerPath = playerPath;
-        this.goalPath = goalPath;
+        this.commonPath = commonPath;
+        this.uncommonPath = uncommonPath;
+        this.rarePath = rarePath;
         this.obstaclePath = obstaclePath;
         this.backgroundPath = backgroundPath;
         
@@ -63,7 +68,7 @@ public class GameController implements ActionListener {
     // Instantiate other package classes.
     private void initElements() {
         player = new Player(areaHeight, areaWidth, playerPath, playerHeight, playerWidth, speed);
-        goal = new Goal(areaHeight, areaWidth, goalPath, goalHeight, goalWidth);
+        goal = new Goal(areaHeight, areaWidth, commonPath, uncommonPath, rarePath, goalHeight, goalWidth);
         obstacles = new Obstacles(areaHeight, areaWidth, obstaclePath, obstacleHeight, obstacleWidth);
         score = new Score(areaHeight, areaWidth);
         background = new Background(areaHeight, areaWidth, backgroundPath);
@@ -93,7 +98,7 @@ public class GameController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent event){
         if (goal.didCollide(player.getXPos(), player.getYPos(), playerWidth, playerHeight)) {
-            score.updateScore();
+            score.updateScore(goal.getType());
             obstacles.newObstacle();
             
             do {

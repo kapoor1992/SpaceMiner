@@ -3,6 +3,7 @@ package spaceminer.game;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 // The brain of the game.
@@ -65,6 +66,13 @@ public class GameController implements ActionListener {
         timer.start();
     }
     
+    private void reset() {
+        window = new JFrame("Space Miner");
+        initElements();
+        attachElements();
+        formatWindow();
+    }
+    
     // Instantiate other package classes.
     private void initElements() {
         player = new Player(areaHeight, areaWidth, playerPath, playerHeight, playerWidth, speed);
@@ -111,7 +119,12 @@ public class GameController implements ActionListener {
             } catch (InterruptedException ie) {
                 ie.printStackTrace();
             }
-            System.exit(0); // Goodbye!
+            int response = JOptionPane.showConfirmDialog(null, "Would you like to try again?",
+                                                     "Space Miner", JOptionPane.YES_NO_OPTION);
+            if (response == 0)
+                reset();
+            else 
+                System.exit(0); // Goodbye!
         }
         
         player.actionPerformed(event);
